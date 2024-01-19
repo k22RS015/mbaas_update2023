@@ -123,6 +123,28 @@
                     $("#display").html("delete fail:" + JSON.stringify(error));
                 })
         }
+
+        function scoreLT(){
+            $("#display").html("Level &lt does not work");
+            UTdata.fetchAll()
+                .then(function(results) {
+                    let value = parseInt($("#data2").val());
+                    results.set(key,value);
+                    return results.lessThan("data2", data2);
+                })
+                .then(function(results){
+                    $("#display").removeClass();
+                    $("#display").addClass("text-light");
+                    $("#display").addClass("bg-primary");
+                    $("#display").html(msg);
+                })
+                .catch(function(error) {
+                    $("#display").removeClass();
+                    $("#display").addClass("bg-warning");
+                    $("#display").html("delete fail:" + JSON.stringify(error));
+                })
+        }
+
     </script>
 </head>
 
@@ -143,9 +165,9 @@
         <a onclick="updateData()" class="btn btn-outline-primary" role="button">Update</a>
     </div>
     <div>
-        <input type="text" id="data" placeholder="スコア">
-        <a onclick="searchLevelLT()" class="btn btn-outline-primary" role="button">Level &lt</a>
-        <a onclick="searchLevelLG()" class="btn btn-outline-primary" role="button">Level &gt</a>
+        <input type="text" id="data2" placeholder="スコア > or < ">
+        <a onclick="scoreLT()" class="btn btn-outline-primary" role="button">Score &lt</a>
+        <a onclick="scoreGT()" class="btn btn-outline-primary" role="button">Score &gt</a>
     </div>
     <div id="display" class="text-light bg-info">
         Results
